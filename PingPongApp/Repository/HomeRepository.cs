@@ -54,9 +54,9 @@ namespace PingPongApp.Repository
         {
             var matchList = new List<MatchInfo>();
 
-            var query = "SELECT matches.*, player1.name AS player_1_name, player2.name AS player_2_name, winningPlayer.name AS winning_player_name FROM dbo.matches" +
-                "JOIN players AS player1 ON playerOneId = player1.Id" +
-                "JOIN players AS player2 ON playerTwoId = player2.Id" +
+            var query = "SELECT matches.*, player1.name AS playerOneName, player2.name AS playerTwoName, winningPlayer.name AS winningPlayerName FROM dbo.matches " +
+                "JOIN players AS player1 ON playerOneId = player1.Id " +
+                "JOIN players AS player2 ON playerTwoId = player2.Id " +
                 "JOIN players AS winningPlayer ON WinningPlayerId = winningPlayer.Id";
             SqlConnection connection = new SqlConnection(connectionString);
             try
@@ -71,23 +71,26 @@ namespace PingPongApp.Repository
                     var playerOneScoreCol = reader.GetOrdinal("PlayerOneScore");
                     var playerTwoScoreCol = reader.GetOrdinal("PlayerTwoScore");
                     var playerWinnerIdCol = reader.GetOrdinal("WinningPlayerId");
-                    var playerWinnerNameCol = reader.GetOrdinal("Name");
-                    //var playerWinnerNameCol = reader.GetOrdinal("Name");
-                    //var playerWinnerNameCol = reader.GetOrdinal("Name");
-                    var playerWinnerAgeCol = reader.GetOrdinal("Age");
+                    var playerWinnerNameCol = reader.GetOrdinal("winningPlayerName");
+                    var playerOneNameCol = reader.GetOrdinal("playerOneName");
+                    var playerTwoNameCol = reader.GetOrdinal("playerTwoName");
                     while (reader.Read())
                     {
                         var playerMatchInfo = new List<PlayerMatchInfo>();
                         var playerOne = new PlayerMatchInfo()
                         {
                             PlayerId = reader.GetInt32(playerOneIdCol),
-                            PlayerScore = reader.GetInt32(playerOneScoreCol)
+                            PlayerScore = reader.GetInt32(playerOneScoreCol),
+                            PlayerName = reader.GetString(playerOneNameCol)
+                                                
                         };
                         playerMatchInfo.Add(playerOne);
                         var playerTwo = new PlayerMatchInfo()
                         {
                             PlayerId = reader.GetInt32(playerTwoIdCol),
-                            PlayerScore = reader.GetInt32(playerTwoScoreCol)
+                            PlayerScore = reader.GetInt32(playerTwoScoreCol),
+                            PlayerName = reader.GetString(playerTwoNameCol)
+
                         };
                         playerMatchInfo.Add(playerTwo);
                         var match = new MatchInfo()
@@ -168,6 +171,7 @@ namespace PingPongApp.Repository
                     var playerTwoScoreCol = reader.GetOrdinal("PlayerTwoScore");
                     var playerWinnerIdCol = reader.GetOrdinal("WinningPlayerId");
                     var playerNameCol = reader.GetOrdinal("Name");
+                    var playerAgeCol = reader.GetOrdinal("Age");
                     var matchesWon = 0;
                     var matchesPlayed = 0;
                     while (reader.Read())
@@ -175,10 +179,12 @@ namespace PingPongApp.Repository
                         var PlayerOneId = reader.GetInt32(playerOneIdCol);
                         var PlayerTwoId = reader.GetInt32(playerTwoIdCol);
                         var winnerId = reader.GetInt32(playerWinnerIdCol);
+                        var playerAge = reader.GetInt32(playerAgeCol);
                         var playerName = reader.GetString(playerNameCol);
 
                         matchDetails.PlayerId = playerId;
                         matchDetails.PlayerName = playerName;
+                        matchDetails.PlayerAge = playerAge;
 
 
                         matchesPlayed += 1;
@@ -207,6 +213,7 @@ namespace PingPongApp.Repository
                 connection.Close();
                 connection.Open();
                 var opponentInfoList = new List<OpponentInfo>();
+                matchDetails.OpponentInfo = opponentInfoList;
                 foreach (var Id in listOfPlayers)
                 {
                     var opponentQuery = "SELECT * FROM dbo.matches " +
@@ -243,6 +250,11 @@ namespace PingPongApp.Repository
                             if (first)
                             {
                                 opponent.MostRecentMatchDate = matchDate;
+                                if (winnerId != Id)
+                                    opponent.WinnerName = matchDetails.PlayerName;
+                                else
+                                    opponent.WinnerName = playerName;
+
                                 first = false;
                             }
 

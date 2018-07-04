@@ -7,5 +7,6 @@ namespace PingPongApp.Models
         public string PlayerName { get; set; }
         public DateTime MostRecentMatchDate { get; set; }
         public double PercentWon { get; set; }
+        public string WinnerName { get; set; }
     }
 }

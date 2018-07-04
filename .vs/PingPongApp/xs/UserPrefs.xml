@@ -1,0 +1,14 @@
+﻿<Properties StartupConfiguration="{C0C21EF2-1B79-48FA-8D61-AECC4887B0B2}|">
+  <MonoDevelop.Ide.ItemProperties.PingPongApp PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="PingPongApp/Views/Home/Index.cshtml">
+    <Files>
+      <File FileName="PingPongApp/Views/Home/Index.cshtml" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>

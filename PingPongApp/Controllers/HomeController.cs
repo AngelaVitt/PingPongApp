@@ -94,7 +94,7 @@ namespace PingPongApp.Controllers
             try
             {
                 var response = await HomeRepository.GetListOfPlayers();
-                //return View();
+                return View(response);
             }
             catch
             {
@@ -107,7 +107,7 @@ namespace PingPongApp.Controllers
             try
             {
                 var response = await HomeRepository.GetListOfMatches();
-                //return View();
+                return View(response);
             }
             catch
             {
@@ -156,12 +156,12 @@ namespace PingPongApp.Controllers
             }
             return View();
         }
-        public async Task<ActionResult> PlayerInfo()
+        public async Task<ActionResult> PlayerInfo(int PlayerID)
         {
             try
             {
-                //var response = await HomeRepository.GetPlayerMatchesInfo(1);
-                //return View();
+                var response = await HomeRepository.GetPlayerMatchesInfo(PlayerID);
+                return View(response);
             }
             catch
             {

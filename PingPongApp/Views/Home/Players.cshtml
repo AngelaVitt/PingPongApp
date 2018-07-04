@@ -1,6 +1,6 @@
-﻿@{
-
-                ViewBag.Title = "Players";
+﻿@model List<PingPongApp.Models.PlayerInfo>
+@{
+    ViewBag.Title = "Players";
 }
 
 <div class="row mb-4">
@@ -19,16 +19,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">Angela Vitt</th>
-                <td>23</td>
-                <td><button class="btn btn-outline-success my-2 my-sm-0" type="button">@Html.ActionLink("Details", "PlayerInfo", "Home")</button></td>
-            </tr>
-            <tr>
-                <th scope="row">Geri Vitt</th>
-                <td>68</td>
-                <td><button class="btn btn-outline-success my-2 my-sm-0" type="button">Details</button></td>
-            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.PlayerName</th>
+                    <td>@item.PlayerAge</td>
+                    <td><button class="btn btn-outline-success my-2 my-sm-0" type="button">@Html.ActionLink("Details", "PlayerInfo", "Home", new { PlayerID = item.PlayerId },null)</button></td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>

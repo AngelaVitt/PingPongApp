@@ -1,13 +1,26 @@
-﻿@{
-    /**/
+﻿@model PingPongApp.Models.PlayerMatchDetail
+@{
+                /**/
 
-    ViewBag.Title = "PlayerInfo";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+                ViewBag.Title = "PlayerInfo";
+                Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@if(@Model.NumberOfGamesPlayed == 0)
+{
+<div class="row mb-4">
+    <div class="col">
+        <h2>This player has no matches</h2>
+    </div>
+</div>
+}
+else
+{
+
 
 <div class="row mb-4">
     <div class="col">
-        <h2>Angela Vitt</h2>
+        <h2>@Model.PlayerName</h2>
     </div>
 </div>
 
@@ -17,9 +30,9 @@
             <div class="card bg-light">
                 <div class="card-header">Basic Info</div>
                 <div class="card-body">
-                    <ul id="basicInfoCard">
-                        <li>Name: Angela Vitt</li>
-                        <li>Age: 23</li>
+                    <ul>
+                        <li>Name: @Model.PlayerName</li>
+                        <li>Age: @Model.PlayerAge</li>
                     </ul>
                 </div>
             </div>
@@ -27,8 +40,8 @@
                 <div class="card-header">Stats</div>
                 <div class="card-body">
                     <ul>
-                        <li>Matches Played: 5</li>
-                        <li>Win %: 23%</li>
+                        <li>Matches Played: @Model.NumberOfGamesPlayed</li>
+                        <li>Wins: @Model.PercentWon %</li>
                     </ul>
                 </div>
             </div>
@@ -56,22 +69,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">Angela Vitt</th>
-                            <td>Angela Vitt</td>
-                            <td>100%</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Geri Vitt</th>
-                            <td>Angela Vitt</td>
-                            <td>100%</td>
-                        </tr>
+                        @foreach (var match in Model.OpponentInfo)
+                        {
+                            <tr>
+                                <td>@match.PlayerName</td>
+                                <td>@match.WinnerName</td>
+                                <td>@match.PercentWon %</td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
-<script>$(document).ready(function() {
-        console.log("ready!");
-});</script>
+}
