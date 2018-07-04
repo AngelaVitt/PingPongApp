@@ -123,18 +123,21 @@ namespace PingPongApp.Repository
             }
             var winnerId = playerMatchInfo.Where(x => x.PlayerScore == higherScore).FirstOrDefault().PlayerId;
             var query = "INSERT INTO matches " +
-                "VALUES(@PlayerOneId, @PlayerTwoId,@PlayerOneScore,@PlayerTwoScore,@WinningPlayerId,@Date";
+                "VALUES(@PlayerOneId, @PlayerTwoId,@PlayerOneScore,@PlayerTwoScore,@WinningPlayerId,@MatchDate)";
             query = query.Replace("@PlayerOneId", playerMatchInfo[0].PlayerId.ToString())
                          .Replace("@PlayerTwoId", playerMatchInfo[1].PlayerId.ToString())
                          .Replace("@PlayerOneScore", playerMatchInfo[0].PlayerScore.ToString())
                          .Replace("@PlayerTwoScore", playerMatchInfo[1].PlayerScore.ToString())
-                         .Replace("@WinningPlayerId", winnerId.ToString())
-                         .Replace("@Date", DateTime.UtcNow.ToString());
+                         .Replace("@WinningPlayerId", winnerId.ToString());
+           
+
+
             SqlConnection connection = new SqlConnection(connectionString);
             try
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@MatchDate", DateTime.UtcNow);
                 var reader = command.ExecuteNonQuery();
 
 

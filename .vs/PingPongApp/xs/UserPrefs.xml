@@ -2,7 +2,7 @@
   <MonoDevelop.Ide.ItemProperties.PingPongApp PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="PingPongApp/Views/Home/Index.cshtml">
     <Files>
-      <File FileName="PingPongApp/Views/Home/Index.cshtml" Line="1" Column="1" />
+      <File FileName="PingPongApp/Views/Home/Index.cshtml" Line="16" Column="13" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

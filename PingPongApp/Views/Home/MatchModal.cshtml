@@ -1,0 +1,102 @@
+﻿@model List<PingPongApp.Models.PlayerInfo>
+    <div class="modal fade" id="newMatchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create a New Match</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="newMatchForm">
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label for="player1">Player 1:</label>
+                                <select class="form-control" id="player1" required>
+                                    @foreach (var player in Model)
+                                    {
+                                        <option>@player.PlayerName</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="score1">Score</label>
+                                <input type="text" class="form-control" id="score1" placeholder="Player Score (Interger)" required />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label for="player2">Player 2:</label>
+                                <select class="form-control" id="player2" required>
+                                    @foreach (var player in Model)
+                                    {
+                                        <option>@player.PlayerName</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="score2">Score</label>
+                                <input type="text" class="form-control" id="score2" placeholder="Player Score (Interger)" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="result"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancelButton" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="submitForm">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+$(function() {
+            $("#submitForm").on('click', function() {
+                console.log("Submitting");
+
+                var form = $('#newMatchForm')[0];
+                var playerOneName = form[0].value;
+                var playerTwoName = form[2].value;
+                var playerOneId;
+                var playerTwoId;
+                var playerOneScore = form[1].value;
+                var playerTwoScore = form[3].value;
+                $.each(@Html.Raw(Json.Encode(Model)), function() {
+                    if (this.PlayerName == playerOneName)
+                        playerOneId = this.PlayerId;
+                    if (this.PlayerName == playerTwoName)
+                        playerTwoId = this.PlayerId;
+                });
+
+                $.ajax({
+                    url: '/Home/SetMatch',
+                    type: 'POST',
+                    data: JSON.stringify({ playerOneId: playerOneId, playerTwoId: playerTwoId, playerOneScore: playerOneScore, playerTwoScore: playerTwoScore }),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function(result) {
+                        console.log("DONE");
+                        $("#result").html("Success! The new match has been created.");
+                        $('#result').addClass("alert alert-success");
+                        $("#cancelButton").html("Close");
+                        $('#submitForm').prop('disabled', true);
+                        $('#submitForm').hide();
+                    },
+                    error: function(request, status, error) {
+                        alert(request.responseText);
+                    }
+                });
+                return false;
+            });
+            $("#cancelButton").on('click', function() {
+                console.log("Submitting");
+                $("#result").html("");
+                $('#result').removeClass("alert alert-success");
+                $("#cancelButton").html("Cancel");
+                $('#submitForm').prop('disabled', false);
+                $('#submitForm').show();
+            });
+});</script>
+    string playerOneId, string playerTwoId, int playeOneScore, int playerTwoScore
