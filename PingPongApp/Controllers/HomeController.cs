@@ -99,7 +99,7 @@ namespace PingPongApp.Controllers
             try
             {
                 var response = await HomeRepository.GetPlayerMatchesInfo(1);
-                //return View();
+                return View(response);
             }
             catch
             {

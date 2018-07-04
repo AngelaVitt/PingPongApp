@@ -1,3 +1,7 @@
 
 .vs/PingPongApp/xs/UserPrefs.xml
 .vs/PingPongApp/xs/UserPrefs.xml
+*.ide-shm
+*.ide-shm
+*.ide-wal
+*.cache
