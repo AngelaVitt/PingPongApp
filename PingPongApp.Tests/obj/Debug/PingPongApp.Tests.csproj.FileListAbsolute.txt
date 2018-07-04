@@ -1,0 +1,2 @@
+/Users/kevinlehtiniitty/Downloads/PingPongApp/PingPongApp.Tests/obj/Debug/PingPongApp.Tests.csprojResolveAssemblyReference.cache
+/Users/kevinlehtiniitty/Downloads/PingPongApp/PingPongApp.Tests/obj/Debug/PingPongApp.Tests.csproj.CoreCompileInputs.cache

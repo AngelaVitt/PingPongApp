@@ -1,0 +1,77 @@
+﻿@{
+    /**/
+
+    ViewBag.Title = "PlayerInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row mb-4">
+    <div class="col">
+        <h2>Angela Vitt</h2>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col col-sm-12">
+        <div class="card-deck">
+            <div class="card bg-light">
+                <div class="card-header">Basic Info</div>
+                <div class="card-body">
+                    <ul id="basicInfoCard">
+                        <li>Name: Angela Vitt</li>
+                        <li>Age: 23</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card bg-light">
+                <div class="card-header">Stats</div>
+                <div class="card-body">
+                    <ul>
+                        <li>Matches Played: 5</li>
+                        <li>Win %: 23%</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card bg-light">
+                <div class="card-header">Trivia</div>
+                <div class="card-body">
+                    <p class="card-text">Trivia Coming Soon!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-sm-12 col">
+        <div class="card bg-light mb-3">
+            <div class="card-header">Player Comparison</div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Opponent</th>
+                            <th scope="col">Winner of Last Match</th>
+                            <th scope="col">Win % Against Opponent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Angela Vitt</th>
+                            <td>Angela Vitt</td>
+                            <td>100%</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Geri Vitt</th>
+                            <td>Angela Vitt</td>
+                            <td>100%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>$(document).ready(function() {
+        console.log("ready!");
+});</script>
